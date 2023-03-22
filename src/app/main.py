@@ -9,6 +9,8 @@ import openpyxl
 from log import setup_logging
 from loguru import logger
 from models import UserInfo
+from openpyxl.workbook.workbook import Workbook
+from openpyxl.worksheet.worksheet import Worksheet
 from selenium.webdriver.remote.webelement import WebElement
 from selenium_tkit.chrome import ChromeOptions, CreateChrome
 from selenium_tkit.custom_webdriver import CustomWebDriver
@@ -137,9 +139,8 @@ def download_excel(driver: CustomWebDriver):
 
 def read_sheet(sheet_path: str) -> list[UserInfo]:
 
-    wb_obj = openpyxl.load_workbook(sheet_path)
-
-    sheet = wb_obj.active
+    wb_obj: Workbook = openpyxl.load_workbook(sheet_path)
+    sheet: Worksheet = wb_obj.active
 
     # ['First Name', 'Last Name ', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number']
     infos = []
